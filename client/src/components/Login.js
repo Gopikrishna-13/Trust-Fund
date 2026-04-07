@@ -21,8 +21,8 @@ const Login = () => {
             // Save the token
             localStorage.setItem('token', response.data.token);
             
-            // Instantly redirect to the dashboard!
-            navigate('/dashboard'); 
+            // Instantly redirect to the landing page!
+            navigate('/'); 
             
         } catch (err) {
             setMessage("❌ " + (err.response?.data?.msg || "Login Failed"));
