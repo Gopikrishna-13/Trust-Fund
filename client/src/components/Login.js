@@ -25,7 +25,7 @@ const Login = () => {
             navigate('/'); 
             
         } catch (err) {
-            setMessage("❌ " + (err.response?.data?.msg || "Login Failed"));
+            setMessage((err.response?.data?.msg || "Login Failed"));
         }
     };
 

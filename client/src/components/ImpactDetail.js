@@ -27,8 +27,7 @@ const ImpactDetail = () => {
                 description: "Support our platform's core initiative to securely connect generous donors with meaningful projects. Your contribution here helps us keep our services free and expand our global reach.",
                 raised: 0.1,
                 goal: 0.5,
-                tag: 'OFFICIAL',
-                emoji: '🤝'
+                tag: 'OFFICIAL'
             });
         } else {
             setCampaign({
@@ -83,7 +82,7 @@ const ImpactDetail = () => {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                         <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full max-w-3xl">
                             <span className="inline-block px-4 py-1.5 rounded-full bg-secondary-container text-on-secondary-container font-bold text-xs uppercase tracking-widest mb-6">Active Campaign</span>
-                            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-none tracking-tight">{campaign.emoji} {campaign.title}</h1>
+                            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-none tracking-tight">{campaign.title}</h1>
                             <p className="text-xl text-white/90 mb-8 max-w-2xl font-light leading-relaxed">{campaign.description}</p>
                             <div className="flex flex-wrap gap-4">
                                 <button onClick={handleDonateClick} className="px-8 py-4 bg-gradient-to-br from-primary to-primary-container text-white rounded-xl font-bold text-lg hover:scale-95 transition-all shadow-lg cursor-pointer">Donate Now</button>
@@ -116,7 +115,6 @@ const ImpactDetail = () => {
                                         <h2 className="text-4xl font-black tracking-tight mb-2">Where Your Money Goes</h2>
                                         <p className="text-on-surface-variant">Complete transparency in every dollar spent.</p>
                                     </div>
-                                    <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>verified_user</span>
                                 </div>
                                 <div className="flex flex-col md:flex-row items-center gap-12">
                                     <div className="relative w-64 h-64 flex-shrink-0">
@@ -166,7 +164,7 @@ const ImpactDetail = () => {
                                 <div className="mt-8 pt-6 border-t border-outline-variant/30 text-sm">
                                     <p className="text-on-surface-variant mb-1"><strong>Blockchain Explorer</strong></p>
                                     <a href={`https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`} target="_blank" rel="noreferrer" className="text-primary hover:underline flex items-center gap-1 font-bold">
-                                        View Smart Contract on Etherscan <span className="material-symbols-outlined text-xs">open_in_new</span>
+                                        View Smart Contract on Etherscan
                                     </a>
                                 </div>
                             </div>
@@ -199,7 +197,6 @@ const ImpactDetail = () => {
                                 </div>
                                 <button onClick={handleDonateClick} className="w-full py-4 bg-secondary text-white rounded-xl font-bold text-lg hover:scale-[0.98] active:scale-100 transition-all mb-4 cursor-pointer">Fund this Project</button>
                                 <p className="text-center text-sm text-on-surface-variant flex items-center justify-center gap-2">
-                                    <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
                                     Secure, encrypted transaction
                                 </p>
                                 

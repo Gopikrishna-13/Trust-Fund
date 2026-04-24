@@ -32,15 +32,15 @@ const ManagerDashboard = () => {
                     <p style={{ margin: '5px 0 0 0', color: '#cbd5e1' }}>NGO Operations & Accountability</p>
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
-                    <button style={styles.walletBtn}>🦊 Connect Admin Wallet</button>
+                    <button style={styles.walletBtn}>Connect Admin Wallet</button>
                     <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
                 </div>
             </div>
 
             <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
-                <VaultCard title="🍞 Food Drive" balance={vaults.food} />
-                <VaultCard title="🧸 Orphan Care" balance={vaults.orphans} />
-                <VaultCard title="🦽 Disabled Support" balance={vaults.disabled} />
+                <VaultCard title="Food Drive" balance={vaults.food} />
+                <VaultCard title="Orphan Care" balance={vaults.orphans} />
+                <VaultCard title="Disabled Support" balance={vaults.disabled} />
             </div>
 
             <div style={{ display: 'flex', gap: '20px' }}>
@@ -50,9 +50,9 @@ const ManagerDashboard = () => {
                         
                         <label style={{ fontWeight: 'bold' }}>Target Vault:</label>
                         <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} style={styles.input}>
-                            <option value="food">🍞 Food Drive</option>
-                            <option value="orphans">🧸 Orphan Care</option>
-                            <option value="disabled">🦽 Disabled Support</option>
+                            <option value="food">Food Drive</option>
+                            <option value="orphans">Orphan Care</option>
+                            <option value="disabled">Disabled Support</option>
                         </select>
 
                         <label style={{ fontWeight: 'bold' }}>Amount Needed (ETH):</label>

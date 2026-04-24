@@ -103,7 +103,6 @@ const LandingPage = () => {
                         </div>
                         <div className="absolute -bottom-8 -left-8 bg-surface-container-lowest p-6 rounded-2xl shadow-xl max-w-[240px]">
                             <div className="flex items-center gap-3 mb-2">
-                                <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>volunteer_activism</span>
                                 <span className="font-headline font-bold text-2xl">45.5 ETH</span>
                             </div>
                             <p className="text-sm text-on-surface-variant font-medium">₹ 72.8 Lakhs Raised for community projects this year.</p>
@@ -121,7 +120,7 @@ const LandingPage = () => {
                             <p className="text-on-surface-variant text-lg">Direct your support toward initiatives making real-world differences today.</p>
                         </div>
                         <button className="text-primary font-bold flex items-center gap-2 hover:underline cursor-pointer">
-                            View All <span className="material-symbols-outlined">arrow_forward</span>
+                            View All
                         </button>
                     </div>
 
@@ -191,18 +190,12 @@ const LandingPage = () => {
                             </p>
                             <div className="space-y-6">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center shrink-0">
-                                        <span className="material-symbols-outlined text-secondary">verified</span>
-                                    </div>
                                     <div>
                                         <h4 className="text-xl font-bold mb-1">Vetted Projects</h4>
                                         <p className="text-on-surface-variant">Every campaign undergoes a rigorous 3-stage verification process before going live.</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                        <span className="material-symbols-outlined text-primary">visibility</span>
-                                    </div>
                                     <div>
                                         <h4 className="text-xl font-bold mb-1">Real-time Impact</h4>
                                         <p className="text-on-surface-variant">Donors receive direct updates and financial reports directly from the project leads.</p>
@@ -236,14 +229,12 @@ const LandingPage = () => {
                         
                         {/* Goal 1 */}
                         <div className="bg-primary text-white p-10 rounded-[2rem] flex flex-col justify-between">
-                            <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>public</span>
                             <h3 className="text-2xl font-bold mt-8">Global Reach</h3>
                             <p className="text-primary-fixed mt-2">Active campaigns in over 45 countries across 6 continents.</p>
                         </div>
                         
                         {/* Goal 2 */}
                         <div className="bg-secondary text-white p-10 rounded-[2rem] flex flex-col justify-between">
-                            <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>groups</span>
                             <h3 className="text-2xl font-bold mt-8">Inclusive Growth</h3>
                             <p className="secondary-fixed mt-2 text-secondary-fixed">Prioritizing projects that foster sustainable local economies.</p>
                         </div>

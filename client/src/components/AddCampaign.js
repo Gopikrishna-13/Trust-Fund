@@ -5,7 +5,6 @@ const AddCampaign = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
-        emoji: '💡',
         goal: '',
         description: '',
         wallet: ''
@@ -21,7 +20,6 @@ const AddCampaign = () => {
         // 1. Format the new campaign to match our existing cards
         const newCampaign = {
             id: Date.now().toString(), // unique ID
-            emoji: formData.emoji,
             title: formData.title,
             raised: '0', // Brand new campaigns start at 0 ETH
             goal: formData.goal,
@@ -39,7 +37,7 @@ const AddCampaign = () => {
         localStorage.setItem('trustFundCampaigns', JSON.stringify(updatedCampaigns));
 
         // 5. The Verification Popup you requested
-        alert('✅ Campaign submitted! We will verify the details and connect it to the smart contract.');
+        alert('Campaign submitted! We will verify the details and connect it to the smart contract.');
 
         // 6. Redirect to Landing Page
         navigate('/');
@@ -51,7 +49,7 @@ const AddCampaign = () => {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
                     <h2 style={{ color: '#0f172a', margin: 0, fontSize: '28px' }}>Launch a Campaign</h2>
-                    <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '16px' }}>✕ Cancel</button>
+                    <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: '16px' }}>Cancel</button>
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -60,10 +58,6 @@ const AddCampaign = () => {
                         <div style={{ flex: 1 }}>
                             <label style={styles.label}>Campaign Title</label>
                             <input required name="title" value={formData.title} onChange={handleInputChange} placeholder="e.g., Clean Water Initiative" style={styles.input} />
-                        </div>
-                        <div style={{ width: '80px' }}>
-                            <label style={styles.label}>Emoji</label>
-                            <input required name="emoji" value={formData.emoji} onChange={handleInputChange} style={{ ...styles.input, textAlign: 'center' }} />
                         </div>
                     </div>
 
