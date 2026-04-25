@@ -1,19 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ManagerDashboard = () => {
     const navigate = useNavigate();
     
-    // Fake Blockchain Data
-    const vaults = { food: 2.5, orphans: 5.1, disabled: 1.2 };
-
+    const [campaigns, setCampaigns] = useState([]);
+    const [account, setAccount] = useState(null);
     const [requestAmount, setRequestAmount] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('food');
+    const [selectedCategory, setSelectedCategory] = useState('');
     const [requestReason, setRequestReason] = useState('');
+
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('trustFundCampaigns') || '[]');
+        setCampaigns(saved);
+        if (saved.length > 0) setSelectedCategory(saved[0].id);
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
+    };
+
+    const connectAdminWallet = async () => {
+        if (typeof window.ethereum !== 'undefined') {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                setAccount(accounts[0]);
+            } catch (error) {
+                console.error("Connection failed", error);
+            }
+        } else {
+            alert('🦊 Please install the MetaMask browser extension!');
+        }
     };
 
     const handleCreateRequest = (e) => {
@@ -28,19 +46,22 @@ const ManagerDashboard = () => {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1e293b', color: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 6px rgba(0,0,0,0.2)' }}>
                 <div>
-                    <h1 style={{ margin: 0, color: '#f8fafc' }}>TrustFund DAO (Manager Control)</h1>
+                    <h1 style={{ margin: 0, color: '#f8fafc' }}>Smart Crowd Fund (Manager Control)</h1>
                     <p style={{ margin: '5px 0 0 0', color: '#cbd5e1' }}>NGO Operations & Accountability</p>
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
-                    <button style={styles.walletBtn}>Connect Admin Wallet</button>
+                    <button onClick={connectAdminWallet} style={styles.walletBtn}>
+                        {account ? `Admin: ${account.substring(0, 6)}...${account.substring(38)}` : 'Connect Admin Wallet'}
+                    </button>
                     <button onClick={handleLogout} style={styles.logoutBtn}>Logout</button>
                 </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
-                <VaultCard title="Food Drive" balance={vaults.food} />
-                <VaultCard title="Orphan Care" balance={vaults.orphans} />
-                <VaultCard title="Disabled Support" balance={vaults.disabled} />
+            <div style={{ display: 'flex', gap: '20px', margin: '20px 0', flexWrap: 'wrap' }}>
+                {campaigns.length > 0
+                    ? campaigns.map(c => <VaultCard key={c.id} title={c.title} balance={parseFloat(c.raised) || 0} />)
+                    : <p style={{ color: '#64748b' }}>No campaigns found.</p>
+                }
             </div>
 
             <div style={{ display: 'flex', gap: '20px' }}>
@@ -48,11 +69,11 @@ const ManagerDashboard = () => {
                     <h2 style={{ color: '#0f172a', marginTop: 0 }}>Create Spend Request</h2>
                     <form onSubmit={handleCreateRequest} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                         
-                        <label style={{ fontWeight: 'bold' }}>Target Vault:</label>
+                        <label style={{ fontWeight: 'bold' }}>Target Campaign:</label>
                         <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} style={styles.input}>
-                            <option value="food">Food Drive</option>
-                            <option value="orphans">Orphan Care</option>
-                            <option value="disabled">Disabled Support</option>
+                            {campaigns.map(c => (
+                                <option key={c.id} value={c.id}>{c.title}</option>
+                            ))}
                         </select>
 
                         <label style={{ fontWeight: 'bold' }}>Amount Needed (ETH):</label>

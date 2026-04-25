@@ -24,6 +24,7 @@ const AddCampaign = () => {
             raised: '0', // Brand new campaigns start at 0 ETH
             goal: formData.goal,
             description: formData.description,
+            wallet: formData.wallet,
             link: `/impact/${formData.title.toLowerCase().replace(/\s+/g, '-')}`
         };
 

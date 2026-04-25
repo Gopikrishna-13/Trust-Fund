@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers'; 
-// NEW: Import your contract details
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from '../config';
 
 const DonorDashboard = () => {
@@ -9,13 +8,15 @@ const DonorDashboard = () => {
     
     const [account, setAccount] = useState(null);
     const [donationAmount, setDonationAmount] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('food');
-    
-    // NEW: Loading state for when the blockchain is processing
+    const [selectedCategory, setSelectedCategory] = useState('');
     const [isProcessing, setIsProcessing] = useState(false);
+    const [campaigns, setCampaigns] = useState([]);
 
-    // Fake initial data (we will fetch this live from the blockchain in the next step)
-    const vaults = { food: 2.5, orphans: 5.1, disabled: 1.2 };
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('trustFundCampaigns') || '[]');
+        setCampaigns(saved);
+        if (saved.length > 0) setSelectedCategory(saved[0].id);
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -64,8 +65,24 @@ const DonorDashboard = () => {
             
             // 5. Wait for the blockchain to mine the block
             await transaction.wait();
-            
-            alert(`🎉 Success! You just locked ${donationAmount} ETH into the ${selectedCategory} smart contract vault!`);
+
+            // Save donor record to localStorage
+            const userAddress = await signer.getAddress();
+            const savedDonors = JSON.parse(localStorage.getItem('newDonors') || '[]');
+            localStorage.setItem('newDonors', JSON.stringify([{ address: userAddress, amount: donationAmount }, ...savedDonors]));
+
+            // Update campaign raised amount
+            const allCampaigns = JSON.parse(localStorage.getItem('trustFundCampaigns') || '[]');
+            const updatedCampaigns = allCampaigns.map(c =>
+                c.id === selectedCategory
+                    ? { ...c, raised: (parseFloat(c.raised) + parseFloat(donationAmount)).toFixed(4) }
+                    : c
+            );
+            localStorage.setItem('trustFundCampaigns', JSON.stringify(updatedCampaigns));
+            setCampaigns(updatedCampaigns);
+
+            const campaignName = campaigns.find(c => c.id === selectedCategory)?.title || selectedCategory;
+            alert(`🎉 Success! You locked ${donationAmount} ETH into the "${campaignName}" campaign!`);
             setDonationAmount('');
             
         } catch (error) {
@@ -81,7 +98,7 @@ const DonorDashboard = () => {
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
                 <div>
-                    <h1 style={{ color: '#1e3a8a', margin: 0 }}>TrustFund DAO (Donor Portal)</h1>
+                    <h1 style={{ color: '#1e3a8a', margin: 0 }}>Smart Crowd Fund (Donor Portal)</h1>
                     <p style={{ margin: '5px 0 0 0', color: '#64748b' }}>Transparent Web3 Crowdfunding</p>
                 </div>
                 <div style={{ display: 'flex', gap: '15px' }}>
@@ -92,21 +109,22 @@ const DonorDashboard = () => {
                 </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '20px', margin: '20px 0' }}>
-                <VaultCard title="🍞 Food Drive" balance={vaults.food} />
-                <VaultCard title="🧸 Orphan Care" balance={vaults.orphans} />
-                <VaultCard title="🦽 Disabled Support" balance={vaults.disabled} />
+            <div style={{ display: 'flex', gap: '20px', margin: '20px 0', flexWrap: 'wrap' }}>
+                {campaigns.length > 0
+                    ? campaigns.map(c => <VaultCard key={c.id} title={c.title} balance={parseFloat(c.raised) || 0} />)
+                    : <p style={{ color: '#64748b' }}>No campaigns found.</p>
+                }
             </div>
 
             <div style={{ display: 'flex', gap: '20px' }}>
                 <div style={{ ...styles.card, flex: 1 }}>
                     <h2 style={{ color: '#1e3a8a', marginTop: 0 }}>Make a Transparent Donation</h2>
                     <form onSubmit={handleDonate} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                        <label style={{ fontWeight: 'bold' }}>Select Vault:</label>
+                        <label style={{ fontWeight: 'bold' }}>Select Campaign:</label>
                         <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} style={styles.input}>
-                            <option value="food">🍞 Food Drive</option>
-                            <option value="orphans">🧸 Orphan Care</option>
-                            <option value="disabled">🦽 Disabled Support</option>
+                            {campaigns.map(c => (
+                                <option key={c.id} value={c.id}>{c.title}</option>
+                            ))}
                         </select>
 
                         <label style={{ fontWeight: 'bold' }}>Amount (ETH):</label>

@@ -9,11 +9,25 @@ const ImpactDetail = () => {
     const [campaign, setCampaign] = useState(null);
     const [copied, setCopied] = useState(false);
     
-    const [donors] = useState([
-        { name: "Sarah J.", address: "0x123...456", amount: "0.5" },
-        { name: "Robert M.", address: "Alice", amount: "1.2" },
-        { name: "Anita L.", address: "0xABC...DEF", amount: "0.25" }
-    ]);
+    const [donors, setDonors] = useState([]);
+
+    useEffect(() => {
+        const saved = JSON.parse(localStorage.getItem('newDonors') || '[]');
+        if (saved.length > 0) {
+            setDonors(saved.slice(0, 5).map(d => ({
+                name: d.address === 'INR Fiat User' ? 'Fiat Donor'
+                    : `${d.address.substring(0, 6)}...${d.address.slice(-4)}`,
+                address: d.address,
+                amount: d.amount,
+            })));
+        } else {
+            setDonors([
+                { name: "Sarah J.", address: "0x123...456", amount: "0.5" },
+                { name: "Robert M.", address: "0x789...abc", amount: "1.2" },
+                { name: "Anita L.", address: "0xABC...DEF", amount: "0.25" },
+            ]);
+        }
+    }, []);
 
     useEffect(() => {
         const savedCampaigns = JSON.parse(localStorage.getItem('trustFundCampaigns') || '[]');
@@ -69,7 +83,7 @@ const ImpactDetail = () => {
                         <span className="text-2xl font-black text-[#0061FE] tracking-tighter">Smart Crowd Fund</span>
                     </div>
                     <div className="hidden md:flex items-center gap-4">
-                        <button onClick={() => navigate('/')} className="text-slate-600 hover:text-[#0061FE] font-bold transition-colors">Volver/Back</button>
+                        <button onClick={() => navigate('/')} className="text-slate-600 hover:text-[#0061FE] font-bold transition-colors">← Back</button>
                     </div>
                 </div>
             </nav>
@@ -188,7 +202,7 @@ const ImpactDetail = () => {
                                 <div className="grid grid-cols-2 gap-4 mb-8">
                                     <div className="p-4 rounded-xl bg-surface-container-low">
                                         <p className="text-xs font-bold text-outline uppercase tracking-wider mb-1">Backers</p>
-                                        <p className="text-2xl font-black">12</p>
+                                        <p className="text-2xl font-black">{donors.length}</p>
                                     </div>
                                     <div className="p-4 rounded-xl bg-surface-container-low">
                                         <p className="text-xs font-bold text-outline uppercase tracking-wider mb-1">Days Left</p>

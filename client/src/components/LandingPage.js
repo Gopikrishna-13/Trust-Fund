@@ -93,8 +93,8 @@ const LandingPage = () => {
                             Join a global movement of collective impact. We bridge the gap between visionary projects and the resources they need to thrive.
                         </p>
                         <div className="flex flex-wrap gap-4 pt-4">
-                            <button className="bg-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-secondary/20 transition-all cursor-pointer">Explore Campaigns</button>
-                            <button className="px-8 py-4 rounded-xl font-bold text-lg text-primary border border-outline-variant hover:bg-surface-container-high transition-all cursor-pointer">Our Story</button>
+                            <button onClick={() => document.getElementById('campaigns').scrollIntoView({ behavior: 'smooth' })} className="bg-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-secondary/20 transition-all cursor-pointer">Explore Campaigns</button>
+                            <button onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 rounded-xl font-bold text-lg text-primary border border-outline-variant hover:bg-surface-container-high transition-all cursor-pointer">Our Story</button>
                         </div>
                     </div>
                     <div className="hidden lg:block relative">
@@ -112,14 +112,14 @@ const LandingPage = () => {
             </section>
 
             {/* Active Campaigns */}
-            <section id="campaigns" className="py-24 bg-surface-container-low">
+            <section id="campaigns" className="py-24 bg-surface-container-low scroll-mt-20">
                 <div className="max-w-7xl mx-auto px-8">
                     <div className="flex justify-between items-end mb-16">
                         <div className="max-w-2xl">
                             <h2 className="text-4xl font-extrabold text-on-surface mb-4">Active Campaigns</h2>
                             <p className="text-on-surface-variant text-lg">Direct your support toward initiatives making real-world differences today.</p>
                         </div>
-                        <button className="text-primary font-bold flex items-center gap-2 hover:underline cursor-pointer">
+                        <button onClick={() => document.getElementById('campaigns').scrollIntoView({ behavior: 'smooth' })} className="text-primary font-bold flex items-center gap-2 hover:underline cursor-pointer">
                             View All
                         </button>
                     </div>
@@ -167,7 +167,7 @@ const LandingPage = () => {
             </section>
 
             {/* About Us */}
-            <section id="about" className="py-24 bg-surface overflow-hidden">
+            <section id="about" className="py-24 bg-surface overflow-hidden scroll-mt-20">
                 <div className="max-w-7xl mx-auto px-8">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div className="relative order-2 lg:order-1">
@@ -208,7 +208,7 @@ const LandingPage = () => {
             </section>
 
             {/* Vision & Mission (Bento Grid) */}
-            <section id="vision" className="py-24 bg-surface-container-low">
+            <section id="philosophy" className="py-24 bg-surface-container-low scroll-mt-20">
                 <div className="max-w-7xl mx-auto px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-extrabold mb-4">Our Core Philosophy</h2>
@@ -216,7 +216,7 @@ const LandingPage = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Mission Card */}
-                        <div id="mission" className="md:col-span-2 bg-surface-container-lowest p-10 rounded-[2rem] shadow-sm flex flex-col md:flex-row gap-8 items-center border border-outline-variant/10">
+                        <div id="mission" className="md:col-span-2 bg-surface-container-lowest p-10 rounded-[2rem] shadow-sm flex flex-col md:flex-row gap-8 items-center border border-outline-variant/10 scroll-mt-24">
                             <div className="md:w-1/2 space-y-4">
                                 <span className="text-primary font-bold tracking-widest text-xs uppercase">Our Mission</span>
                                 <h3 className="text-3xl font-bold">Bridging Resources to Reality</h3>
@@ -240,7 +240,7 @@ const LandingPage = () => {
                         </div>
 
                         {/* Vision Card */}
-                        <div className="md:col-span-2 bg-surface-container-lowest p-10 rounded-[2rem] shadow-sm flex flex-col md:flex-row-reverse gap-8 items-center border border-outline-variant/10">
+                        <div id="vision" className="md:col-span-2 bg-surface-container-lowest p-10 rounded-[2rem] shadow-sm flex flex-col md:flex-row-reverse gap-8 items-center border border-outline-variant/10 scroll-mt-24">
                             <div className="md:w-1/2 space-y-4">
                                 <span className="text-primary font-bold tracking-widest text-xs uppercase">Our Vision</span>
                                 <h3 className="text-3xl font-bold">A World of Shared Prosperity</h3>
@@ -275,8 +275,8 @@ const LandingPage = () => {
                         <div className="space-y-4">
                             <h5 className="font-bold text-on-surface">Legal</h5>
                             <ul className="space-y-2 font-['Inter'] text-sm text-slate-500">
-                                <li><a className="hover:text-blue-500 hover:underline transition-all" href="#privacy">Privacy Policy</a></li>
-                                <li><a className="hover:text-blue-500 hover:underline transition-all" href="#terms">Terms of Service</a></li>
+                                <li><a className="hover:text-blue-500 hover:underline transition-all" href="https://www.termsfeed.com/live/privacy-policy" target="_blank" rel="noreferrer">Privacy Policy</a></li>
+                                <li><a className="hover:text-blue-500 hover:underline transition-all" href="https://www.termsfeed.com/live/terms-of-service" target="_blank" rel="noreferrer">Terms of Service</a></li>
                             </ul>
                         </div>
                     </div>
