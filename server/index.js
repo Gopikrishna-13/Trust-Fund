@@ -21,7 +21,7 @@ app.use('/api/auth', authRoutes);
 
 // Add this line below your app.use('/api/auth', ...)
 app.use('/api/transactions', require('./routes/transactions'));
-
+app.use('/api/campaigns', require('./routes/campaigns'));
 app.get('/', (req, res) => {
     res.send("Banking Server is Running!");
 });
